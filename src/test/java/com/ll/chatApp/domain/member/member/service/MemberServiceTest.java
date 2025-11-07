@@ -1,7 +1,6 @@
-package com.ll.chatApp.member.member.service;
+package com.ll.chatApp.domain.member.member.service;
 
 import com.ll.chatApp.domain.member.member.entity.Member;
-import com.ll.chatApp.domain.member.member.service.MemberService;
 import com.ll.chatApp.global.rsData.RsData;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
