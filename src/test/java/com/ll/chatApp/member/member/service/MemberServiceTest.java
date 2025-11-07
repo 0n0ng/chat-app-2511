@@ -1,0 +1,31 @@
+package com.ll.chatApp.member.member.service;
+
+import com.ll.chatApp.domain.member.member.entity.Member;
+import com.ll.chatApp.domain.member.member.service.MemberService;
+import com.ll.chatApp.global.rsData.RsData;
+import org.junit.jupiter.api.DisplayName;
+import org.junit.jupiter.api.Test;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.boot.test.context.SpringBootTest;
+import org.springframework.test.context.ActiveProfiles;
+import org.springframework.transaction.annotation.Transactional;
+
+import static org.assertj.core.api.AssertionsForClassTypes.assertThat;
+
+@SpringBootTest
+// test.yml 을 쓰겠다는 어노테이션
+@ActiveProfiles("test")
+@Transactional
+public class MemberServiceTest {
+
+    @Autowired
+    private MemberService memberService;
+
+    @DisplayName("회원가입")
+    @Test
+    void t1() {
+        RsData<Member> joinRs = memberService.join("usernew", "1234");
+        Member member = joinRs.getData();
+        assertThat(member.getId()).isGreaterThan(0L);
+    }
+}
