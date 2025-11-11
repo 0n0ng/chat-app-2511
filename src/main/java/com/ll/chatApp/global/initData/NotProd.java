@@ -1,7 +1,7 @@
 package com.ll.chatApp.global.initData;
 
 import com.ll.chatApp.domain.article.article.entity.Article;
-import com.ll.chatApp.domain.article.article.sevice.ArticleService;
+import com.ll.chatApp.domain.article.article.service.ArticleService;
 import com.ll.chatApp.domain.chat.chatMessage.service.ChatMessageService;
 import com.ll.chatApp.domain.chat.chatRoom.entity.ChatRoom;
 import com.ll.chatApp.domain.chat.chatRoom.service.ChatRoomService;

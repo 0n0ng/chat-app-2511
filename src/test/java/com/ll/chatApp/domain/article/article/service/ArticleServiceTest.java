@@ -1,19 +1,18 @@
 package com.ll.chatApp.domain.article.article.service;
 
 import com.ll.chatApp.domain.article.article.entity.Article;
-import com.ll.chatApp.domain.article.article.sevice.ArticleService;
+import com.ll.chatApp.domain.member.member.entity.Member;
 import com.ll.chatApp.global.rsData.RsData;
+import jakarta.transaction.Transactional;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.test.context.ActiveProfiles;
-import org.springframework.transaction.annotation.Transactional;
 
-import static org.assertj.core.api.AssertionsForInterfaceTypes.assertThat;
+import static org.assertj.core.api.AssertionsForClassTypes.assertThat;
 
 @SpringBootTest
-// test.yml 을 쓰겠다는 어노테이션
 @ActiveProfiles("test")
 @Transactional
 public class ArticleServiceTest {
@@ -27,5 +26,32 @@ public class ArticleServiceTest {
         Article article = writeRs.getData();
 
         assertThat(article.getId()).isGreaterThan(0L);
+    }
+
+    @DisplayName("1번 글을 가져온다.")
+    @Test
+    void t2() {
+        Article article = articleService.findById(1L).get();
+        assertThat(article.getTitle()).isEqualTo("제목1");
+    }
+
+    @DisplayName("1번 글 작성자의 username은 user1 이다.")
+    @Test
+    void t3() {
+        Article article = articleService.findById(1L).get();
+        Member author = article.getAuthor();
+
+        assertThat(author.getUsername()).isEqualTo("user1");
+    }
+
+    @DisplayName("1번 글의 제목을 수정한다.")
+    @Test
+    void t4() {
+        Article article = articleService.findById(1L).get();
+        articleService.modify(article, "수정된 제목", "수정된 내용");
+
+        Article article_ = articleService.findById(1L).get();
+
+        assertThat(article_.getTitle()).isEqualTo("수정된 제목");
     }
 }

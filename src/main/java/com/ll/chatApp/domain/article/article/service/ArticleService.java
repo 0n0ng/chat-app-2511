@@ -1,4 +1,4 @@
-package com.ll.chatApp.domain.article.article.sevice;
+package com.ll.chatApp.domain.article.article.service;
 
 import com.ll.chatApp.domain.article.article.entity.Article;
 import com.ll.chatApp.domain.article.article.repository.ArticleRepository;
@@ -6,6 +6,8 @@ import com.ll.chatApp.domain.member.member.entity.Member;
 import com.ll.chatApp.global.rsData.RsData;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
+
+import java.util.Optional;
 
 @Service
 @RequiredArgsConstructor
@@ -23,4 +25,17 @@ public class ArticleService {
 
         return RsData.of("200", "글 작성 성공", article);
     }
+
+    public Optional<Article> findById(long id) {
+        return articleRepository.findById(id);
+    }
+
+
+    public void modify(Article article, String title, String content) {
+        article.setTitle(title);
+        article.setContent(content);
+
+        articleRepository.save(article);
+    }
+
 }
