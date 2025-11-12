@@ -29,7 +29,8 @@ public class Article extends BaseEntity {
     @ManyToOne(fetch = FetchType.LAZY)
     private Member author;
 
-    // orphan(고아) 부모 관계 끊어진 자식을 자동으로 삭제
+    // orphan(고아) 부모 관계 끊어지면 자동적으로 자식도 사라짐(부모는 남아있어도)
+    // cascade는 부모가 사라질 때 같이 사라짐
     @OneToMany(mappedBy = "article", cascade = ALL, orphanRemoval = true)
     @Builder.Default //빌더 객체 만들 때 null point exception 방지
 
