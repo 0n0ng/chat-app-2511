@@ -4,6 +4,7 @@ import com.ll.chatApp.domain.article.articleComment.entity.ArticleComment;
 import com.ll.chatApp.domain.member.member.entity.Member;
 import com.ll.chatApp.global.jpa.BaseEntity;
 import jakarta.persistence.Entity;
+import jakarta.persistence.FetchType;
 import jakarta.persistence.ManyToOne;
 import jakarta.persistence.OneToMany;
 import lombok.*;
@@ -25,11 +26,13 @@ public class Article extends BaseEntity {
     String title;
     String content;
 
-    @ManyToOne
+    @ManyToOne(fetch = FetchType.LAZY)
     private Member author;
 
-    @OneToMany(mappedBy = "article", cascade = ALL)
+    // orphan(고아) 부모 관계 끊어진 자식을 자동으로 삭제
+    @OneToMany(mappedBy = "article", cascade = ALL, orphanRemoval = true)
     @Builder.Default //빌더 객체 만들 때 null point exception 방지
+
     private List<ArticleComment> comments = new ArrayList<>();
 
     public void addComment(Member memberAuthor, String commentBody) {
