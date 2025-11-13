@@ -27,4 +27,5 @@ public class MemberServiceTest {
         Member member = joinRs.getData();
         assertThat(member.getId()).isGreaterThan(0L);
     }
+
 }
