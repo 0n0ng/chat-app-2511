@@ -13,6 +13,7 @@ import lombok.experimental.SuperBuilder;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.stream.Collectors;
 
 import static jakarta.persistence.CascadeType.ALL;
 
@@ -70,4 +71,23 @@ public class Article extends BaseEntity {
             addTag(tagContent);
         }
     }
+
+    public String getTagsStr() {
+        String tagsStr = tags.stream()
+                .map(ArticleTag::getContent)
+                // 꺼내온 content를 #을 붙여 하나의 String으로 만들겠따.
+                .collect(Collectors.joining("#"));
+        if (tagsStr.isBlank())  {
+            return "";
+        }
+
+        //가장 앞의 content에는 #d이 안 붙기 때문에 마치 태그처럼 보이게끔 붙여주기
+        return "#" + tagsStr;
+
+        // 예시
+        // ["자바" , "스프링"] -> map에서꺼내옴
+        // ["자바 #스프링"] -> joining
+        // ["#자바 #스프링"] -> return의 #
+    }
+
 }
